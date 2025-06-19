@@ -20,4 +20,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "run_production:app"] 
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "--timeout", "120", "-w", "1", "run_production:app"] 
