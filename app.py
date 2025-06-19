@@ -11,6 +11,7 @@ from flask_caching import Cache
 import json
 import warnings
 from dotenv import load_dotenv
+import requests
 
 # Load environment variables
 load_dotenv()
@@ -25,6 +26,24 @@ CORS(app)
 
 # Load the trained model with error handling
 MODEL_PATH = os.environ.get('MODEL_PATH', './saved_models/my_model.keras')
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1kCRFq6Bc_H4uZ157NAvPPI0G3v9uLcPB"
+
+def download_model():
+    os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
+    print(f"Downloading model from {MODEL_URL} ...")
+    response = requests.get(MODEL_URL, stream=True)
+    if response.status_code == 200:
+        with open(MODEL_PATH, "wb") as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+        print("Model downloaded successfully.")
+    else:
+        raise Exception(f"Failed to download model, status code: {response.status_code}")
+
+if not os.path.exists(MODEL_PATH):
+    download_model()
+
 try:
     model = tf.keras.models.load_model(MODEL_PATH, compile=False)
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])

@@ -40,4 +40,7 @@ env/
 
 # Heroku
 *.pyc
-staticfiles/ 
+staticfiles/
+
+# Saved models
+saved_models/my_model.keras 
