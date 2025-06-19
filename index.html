@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bird Image Classification</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="toggle-container">
+        <button id="toggleButton" class="toggle-button" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="main-content">
+        <div class="left-card">
+            <div class="container">
+                <h1>Bird Image Classification</h1>
+                <form id="upload-form" enctype="multipart/form-data">
+                    <div class="file-input-container">
+                        <label for="file-input" class="file-input-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Choose an image or drag it here</span>
+                        </label>
+                        <input type="file" id="file-input" name="file" accept="image/*" required>
+                    </div>
+                    <div id="progress-bar-container">
+                        <div id="progress-bar"></div>
+                    </div>
+                    <button type="button" id="submitButton">
+                        <i class="fas fa-search"></i>
+                        Classify Image
+                    </button>
+                </form>
+                <img id="image-preview" src="" alt="Image Preview" style="display: none;">
+                <p id="result"></p>
+                <p id="confidence"></p>
+                <button type="button" id="clearButton" style="display: none;">
+                    <i class="fas fa-trash"></i>
+                    Clear
+                </button>
+            </div>
+        </div>
+        
+        <div class="right-card">
+            <div id="stats-container" class="stats-container">
+                <h2>Model Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-chart-bar"></i>
+                        <div class="stat-label">Total Predictions</div>
+                        <div class="stat-value" id="total-predictions">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-percentage"></i>
+                        <div class="stat-label">Accuracy</div>
+                        <div class="stat-value" id="avg-confidence">0%</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="stat-label">Average Processing Time</div>
+                        <div class="stat-value" id="avg-processing-time">0ms</div>
+                    </div>
+                </div>
+            </div>
+    
+            <div id="prediction-history" class="prediction-history">
+                <div class="history-header">
+                    <h2>Recent Predictions</h2>
+                </div>
+                <ul id="history-list" class="history-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-spinner" id="loading-spinner"></div>
+    <p class="error-message" id="error-message"></p>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
